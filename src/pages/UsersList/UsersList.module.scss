@@ -1,0 +1,23 @@
+.usersList{
+    padding: 19px 62px 25px 34px;
+    width:100%;
+
+    h2{
+      margin-bottom: 17px;  
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 16px;
+    }
+
+    .users{
+        display: flex;
+        flex-direction: column;
+    }
+    .count{
+        display:flex;
+        justify-content: flex-end;
+        font-size: 12px;
+        line-height: 14px;
+        margin-top: auto;
+    }
+}

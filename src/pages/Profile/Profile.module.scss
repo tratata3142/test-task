@@ -1,0 +1,26 @@
+.profile{
+    padding:13px 41px 0 36px;
+    width: 100%;
+    .top{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    form{
+
+        .inputs{
+            border: 1px solid #F3F3F3;
+            border-radius: 8px;
+            padding: 20px 0 19px 12px;
+            margin-top: 10.88px;
+            margin-bottom: 10px;
+        }
+
+        .formBtn{
+            display:flex;
+            justify-content: flex-end;
+        }
+
+    }
+}

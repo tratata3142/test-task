@@ -1,0 +1,43 @@
+.btn{
+    color: #FFFFFF;
+    padding: 8px 15px;
+    border:none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-block;
+    white-space:nowrap;
+
+    &.primary{
+        background: #4B51EF;  
+        
+        &:hover{
+            background: #3f44d4;  
+        }
+    }
+
+    &.success{
+        background: #52CF4F;
+        
+        &:hover{
+            background: #46b444;  
+        }
+    }
+
+    &.link{
+        background: none;
+        color: #4B51EF;
+        padding:0;
+
+        &:hover{
+            color:#353acc;
+        }
+    }
+
+    &:disabled{
+        background: #AFAFAF;
+        cursor: default;
+        &:hover{
+            background: #AFAFAF;
+        }
+    }
+}

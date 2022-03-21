@@ -1,0 +1,36 @@
+.input{
+    margin-bottom: 10px;
+    label{
+        font-size: 8px;
+        line-height: 9px;
+        display: block;
+        margin-bottom:3px;
+    }
+    
+    input{
+        font-size: 10px;
+        line-height: 12px;
+        padding: 5px 10px;
+        border: 1px solid #D8D8D8;
+        background: #FFFFFF;
+        border-radius: 5px;
+        width: 211px;
+
+        &:invalid {
+            border-color: #D91313;
+        }
+
+        &:disabled{
+            color: rgba(0, 0, 0, 0.3);
+        }
+    }
+    textarea{
+        min-width: 420px;
+        height:55px;
+        resize: none;
+        border: 1px solid #D8D8D8;
+        background: #FFFFFF;
+        border-radius: 5px;
+        padding: 3px 5px;
+    }
+}
