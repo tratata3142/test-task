@@ -28,7 +28,7 @@ module.exports = {
   mode,
   entry: ['babel-polyfill', './src/index.js'],
   output: {
-    path: path.resolve(__dirname, 'build'),
+    path: path.resolve(__dirname, 'dist'),
     assetModuleFilename: 'assets/[hash][ext][query]',
     clean: true,
     publicPath: '/',
@@ -76,7 +76,7 @@ module.exports = {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
   },
   devServer: {
-    contentBase: './build',
+    contentBase: './dist',
     hot: true,
     historyApiFallback: true,
   },
