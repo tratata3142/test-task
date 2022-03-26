@@ -11,29 +11,31 @@ import s from './Profile.module.scss'
 const Profile:FC = () => {
   const [editMode, setEditMode] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
-  const [name, setName] = useState<string>('')
-  const [username, setUsername] = useState<string>('')
-  const [email, setEmail] = useState<string>('')
-  const [street, setStreet] = useState<string>('')
-  const [city, setCity] = useState<string>('')
-  const [zipcode, setZipcode] = useState<string>('')
-  const [phone, setPhone] = useState<string>('')
-  const [website, setWebsite] = useState<string>('')
-  const [comment, setComment] = useState<string>('')
+  const [user, setUser] = useState<IProfile>()
+
   const {id}=useParams()
 
   const fetchUser=async()=>{
     setLoading(true)
-    const {data}=await axios.get(`https://jsonplaceholder.typicode.com/users/${id}`)
+    try {
+      const {data}=await axios.get(`https://jsonplaceholder.typicode.com/users/${id}`)
     setLoading(false)
-    setName(data.name)
-    setUsername(data.username)
-    setEmail(data.email)
-    setStreet(data.address.street)
-    setCity(data.address.city)
-    setZipcode(data.address.zipcode)
-    setPhone(data.phone)
-    setWebsite(data.website)
+    setUser({
+      name:data.name,
+      username:data.username,
+      email:data.email,
+      street:data.address.street,
+      city:data.address.city,
+      zipcode:data.address.zipcode,
+      phone:data.phone,
+      website:data.website,
+      comment:''
+    })
+    } catch (error) {
+      setLoading(false)
+      console.log(error);
+      
+    }
   }
   useEffect(() => {
     fetchUser()
@@ -41,23 +43,11 @@ const Profile:FC = () => {
 
   const sendProfile=(e: React.FormEvent)=>{
     e.preventDefault()
-    const profile:IProfile={
-      name:name,
-      username:username,
-      email:email,
-      street:street,
-      city:city,
-      zipcode:zipcode,
-      phone:phone,
-      website:website,
-      comment:comment,
-    }
-    console.log(JSON.stringify(profile));
-    
+    console.log(JSON.stringify(user)); 
   }
   
   
-  if(loading){
+  if(loading || !user){
     return <Loader />
   }
   return (
@@ -68,15 +58,15 @@ const Profile:FC = () => {
         </div>
         <form onSubmit={(e)=>sendProfile(e)}>
           <div className={s.inputs}>
-            <Input  id='name' value={name} label='Name' disabled={!editMode} onChange={setName} />
-            <Input id='userName' value={username} label='User name' disabled={!editMode} onChange={setUsername} />
-            <Input id='email' value={email} label='E-mail' type='email' disabled={!editMode} onChange={setEmail}  />
-            <Input id='street' value={street} label='Street' disabled={!editMode} onChange={setStreet} />
-            <Input id='city' value={city} label='City' disabled={!editMode} onChange={setCity} />
-            <Input id='zipCode' value={zipcode} label='Zip code' disabled={!editMode} onChange={setZipcode} />
-            <Input id='phone' value={phone} label='Phone' disabled={!editMode} onChange={setPhone} />
-            <Input id='website' value={website} label='Website' disabled={!editMode} onChange={setWebsite} />
-            <Input id='comment' value={comment} label='Comment' type='textarea' disabled={!editMode} onChange={setComment} />
+            <Input  id='name' value={user.name} label='Name' disabled={!editMode} onChange={(e)=>setUser({...user,name:e.target.value})} />
+            <Input id='userName' value={user.username} label='User name' disabled={!editMode} onChange={(e)=>setUser({...user,username:e.target.value})} />
+            <Input id='email' value={user.email} label='E-mail' type='email' disabled={!editMode} onChange={(e)=>setUser({...user,email:e.target.value})}  />
+            <Input id='street' value={user.street} label='Street' disabled={!editMode} onChange={(e)=>setUser({...user,street:e.target.value})} />
+            <Input id='city' value={user.city} label='City' disabled={!editMode} onChange={(e)=>setUser({...user,city:e.target.value})} />
+            <Input id='zipCode' value={user.zipcode} label='Zip code' disabled={!editMode} onChange={(e)=>setUser({...user,zipcode:e.target.value})} />
+            <Input id='phone' value={user.phone} label='Phone' disabled={!editMode} onChange={(e)=>setUser({...user,phone:e.target.value})} />
+            <Input id='website' value={user.website} label='Website' disabled={!editMode} onChange={(e)=>setUser({...user,website:e.target.value})} />
+            <Input id='comment' value={user.comment} label='Comment' type='textarea' disabled={!editMode} onChange={(e)=>setUser({...user,comment:e.target.value})} />
           </div>
             <div className={s.formBtn}>
               <Button type='submit' variant='success' disabled={!editMode} >Отправить</Button>

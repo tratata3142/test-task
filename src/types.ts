@@ -31,6 +31,6 @@ export interface IProfile{
     zipcode:string,
     phone:string,
     website:string,
-    comment?:string
+    comment:string
 }
 
