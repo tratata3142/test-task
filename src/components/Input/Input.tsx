@@ -1,5 +1,4 @@
-import { FC, HTMLInputTypeAttribute } from 'react'
-import { IProfile } from '../../types'
+import { FC, HTMLInputTypeAttribute, memo } from 'react'
 import './Input.scss'
 
 
@@ -12,13 +11,9 @@ interface ProfileProps{
     type?:HTMLInputTypeAttribute|'textarea',
 }
 
-const Input:FC<ProfileProps> = ({type='text',...props}) => {
-
-  // const setValue=(e:React.ChangeEvent<HTMLInputElement|HTMLTextAreaElement>)=>{
-  //   onChange(e.target.value)
-  // }
-  
-  
+const Input:FC<ProfileProps> =memo(({type='text',...props}) => {
+    console.log('ws');
+    
   return (
       <div className='input' >
           <label htmlFor={props.id} > {props.label} </label>
@@ -28,6 +23,6 @@ const Input:FC<ProfileProps> = ({type='text',...props}) => {
           }
       </div>
   )
-}
+})
 
 export default Input

@@ -1,5 +1,5 @@
 import {FC, useEffect, useState} from 'react'
-import { Route, Routes, useLocation, useNavigate, useParams } from 'react-router-dom'
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import Sorting from './components/Sorting/Sorting'
 import Profile from './pages/Profile/Profile'
 import UsersList from './pages/UsersList/UsersList'
@@ -10,6 +10,7 @@ import { IUser } from './types'
 const App:FC = () => {
   const [users, setUsers] = useState<IUser[]>([])
   const [loading, setLoading] = useState<boolean>(false)
+
   const {pathname}=useLocation()
   const navigate=useNavigate()
   

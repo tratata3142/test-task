@@ -1,4 +1,5 @@
 import axios from 'axios'
+import React, { useCallback } from 'react'
 import { FC, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Button from '../../components/Button/Button'
@@ -11,7 +12,17 @@ import s from './Profile.module.scss'
 const Profile:FC = () => {
   const [editMode, setEditMode] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
-  const [user, setUser] = useState<IProfile>()
+  const [user, setUser] = useState<IProfile>({
+    name:'',
+    username:'',
+    email:'',
+    street:'',
+    city:'',
+    zipcode:'',
+    phone:'',
+    website:'',
+    comment:'',
+  })
 
   const {id}=useParams()
 
@@ -41,9 +52,19 @@ const Profile:FC = () => {
     fetchUser()
   }, [])
 
+  const changeInput=useCallback( (e) => {
+      setUser((prev)=>{
+        return {
+          ...prev,
+          [e.target.id] :e.target.value
+        }
+      })
+    },[setUser])
+  
+  
   const sendProfile=(e: React.FormEvent)=>{
     e.preventDefault()
-    console.log(JSON.stringify(user)); 
+    console.log(JSON.stringify(user, null, 2)); 
   }
   
   
@@ -58,15 +79,15 @@ const Profile:FC = () => {
         </div>
         <form onSubmit={(e)=>sendProfile(e)}>
           <div className={s.inputs}>
-            <Input  id='name' value={user.name} label='Name' disabled={!editMode} onChange={(e)=>setUser({...user,name:e.target.value})} />
-            <Input id='userName' value={user.username} label='User name' disabled={!editMode} onChange={(e)=>setUser({...user,username:e.target.value})} />
-            <Input id='email' value={user.email} label='E-mail' type='email' disabled={!editMode} onChange={(e)=>setUser({...user,email:e.target.value})}  />
-            <Input id='street' value={user.street} label='Street' disabled={!editMode} onChange={(e)=>setUser({...user,street:e.target.value})} />
-            <Input id='city' value={user.city} label='City' disabled={!editMode} onChange={(e)=>setUser({...user,city:e.target.value})} />
-            <Input id='zipCode' value={user.zipcode} label='Zip code' disabled={!editMode} onChange={(e)=>setUser({...user,zipcode:e.target.value})} />
-            <Input id='phone' value={user.phone} label='Phone' disabled={!editMode} onChange={(e)=>setUser({...user,phone:e.target.value})} />
-            <Input id='website' value={user.website} label='Website' disabled={!editMode} onChange={(e)=>setUser({...user,website:e.target.value})} />
-            <Input id='comment' value={user.comment} label='Comment' type='textarea' disabled={!editMode} onChange={(e)=>setUser({...user,comment:e.target.value})} />
+            <Input  id='name' value={user.name} label='Name' disabled={!editMode} onChange={changeInput} />
+            <Input id='username' value={user.username} label='User name' disabled={!editMode} onChange={changeInput} />
+            <Input id='email' value={user.email} label='E-mail' type='email' disabled={!editMode} onChange={changeInput}  />
+            <Input id='street' value={user.street} label='Street' disabled={!editMode} onChange={changeInput} />
+            <Input id='city' value={user.city} label='City' disabled={!editMode} onChange={changeInput} />
+            <Input id='zipCode' value={user.zipcode} label='Zip code' disabled={!editMode} onChange={changeInput} />
+            <Input id='phone' value={user.phone} label='Phone' disabled={!editMode} onChange={changeInput} />
+            <Input id='website' value={user.website} label='Website' disabled={!editMode} onChange={changeInput} />
+            <Input id='comment' value={user.comment} label='Comment' type='textarea' disabled={!editMode} onChange={changeInput} />
           </div>
             <div className={s.formBtn}>
               <Button type='submit' variant='success' disabled={!editMode} >Отправить</Button>
